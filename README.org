@@ -1,0 +1,7 @@
+#+title: Easter Egg Hunt
+
+* Introduction
+
+This is the way we run easter egg hunts in my family.
+There is code - but it is not a web-site.
+Instead, the code produces LaTeX output that can be printed and the prints are then cut up, stuck to individual eggs, and the eggs deposited in some location in the house. 
