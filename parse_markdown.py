@@ -1,77 +1,63 @@
-""" parse latex file into questions and answers
+""" Parse markdown file into questions and answers
 
-j. brusey, March 2018
+J. Brusey, March, 2018 -- April, 2025
 """
 
 from random import shuffle
 import csv
 import re
 import pandas as pd
+from typing import List, Tuple, Dict, Any
 
 HEAD = 1
 QUES = 2
 ANS = 3
 
-import re
 
-
-def read_lines(file_path):
-    """Read the file and return a list of stripped lines."""
-    with open(file_path, "r") as file:
+def read_lines(file_path: str) -> List[str]:
+    with open(file_path, "r", encoding="utf-8") as file:
         return [line.rstrip() for line in file]
 
 
-def parse_header(lines):
-    """Parse header lines until the first question is encountered.
-    Returns the header string and the current index.
-    """
-    header_lines = []
-    i = 0
+def parse_header(lines: List[str]) -> Tuple[str, int]:
+    header_lines: List[str] = []
+    i: int = 0
     while i < len(lines) and not re.match(r"^\d+\.\s+", lines[i]):
         header_lines.append(lines[i])
         i += 1
-    header = "\n".join(header_lines).strip()
+    header: str = "\n".join(header_lines).strip()
     return header, i
 
 
-def parse_question(lines, i):
-    """Parse a single question with optional continuation lines.
-    Returns a tuple (question_number, question_text) and the updated index.
-    """
-    # Skip blank lines
+def parse_question(lines: List[str], i: int) -> Tuple[Tuple[str, str], int]:
     while i < len(lines) and not lines[i].strip():
         i += 1
     if i >= len(lines) or not re.match(r"^\d+\.\s+", lines[i]):
-        raise ValueError("Expected a question at line index {}".format(i))
-    # Capture the question and its continuation lines
-    q_lines = [lines[i].strip()]
+        raise ValueError(f"Expected a question at line index {i}")
+    q_lines: List[str] = [lines[i].strip()]
     i += 1
     while i < len(lines) and lines[i] and not lines[i].startswith("    "):
         q_lines.append(lines[i].strip())
         i += 1
-    question_text = " ".join(q_lines)
+    question_text: str = " ".join(q_lines)
     match = re.match(r"(\d+)\.\s+(.*)", question_text)
     if not match:
         raise ValueError(f"Invalid question format: '{question_text}'")
     return match.groups(), i
 
 
-def parse_answer(lines, i):
-    """Parse a single answer (which may span multiple indented lines).
-    Returns the answer text and the updated index.
-    """
-    # Skip any blank lines
+def parse_answer(lines: List[str], i: int) -> Tuple[str, int]:
     while i < len(lines) and not lines[i].strip():
         i += 1
     if i >= len(lines) or not (
         lines[i].startswith("    ") and re.match(r" {4}\d+\.\s+", lines[i])
     ):
         raise ValueError(
-            f"Invalid answer start format at line index {i}: '{lines[i] if i < len(lines) else 'EOF'}'"
+            f"Invalid answer start format at line index {i}: "
+            f"'{lines[i] if i < len(lines) else 'EOF'}'"
         )
-    ans_lines = [lines[i].lstrip()]
+    ans_lines: List[str] = [lines[i].lstrip()]
     i += 1
-    # Append continuation lines (still indented and not a new answer start)
     while (
         i < len(lines)
         and lines[i].startswith("    ")
@@ -80,21 +66,18 @@ def parse_answer(lines, i):
         if lines[i].strip():
             ans_lines.append(lines[i].strip())
         i += 1
-    ans_text = " ".join(ans_lines)
+    ans_text: str = " ".join(ans_lines)
     match = re.match(r"(\d+)\.\s+(.*)", ans_text)
     if not match:
         raise ValueError(f"Invalid answer format: '{ans_text}'")
     return match.group(2), i
 
 
-def parse_questions(lines, i):
-    """Parse all questions and their associated answers starting at index i."""
-    questions = []
+def parse_questions(lines: List[str], i: int) -> List[Dict[str, Any]]:
+    questions: List[Dict[str, Any]] = []
     while i < len(lines):
-        # Parse question
         (q_number, q_body), i = parse_question(lines, i)
-        answers = []
-        # Expect exactly 3 answers for each question.
+        answers: List[str] = []
         for _ in range(3):
             ans_body, i = parse_answer(lines, i)
             answers.append(ans_body)
@@ -102,12 +85,10 @@ def parse_questions(lines, i):
     return questions
 
 
-def parse_markdown(file_path):
-    """Main function to parse the markdown file."""
-    lines = read_lines(file_path)
-    header, index = parse_header(lines)
-    questions = parse_questions(lines, index)
-    return questions
+def parse_markdown(file_path: str) -> List[Dict[str, Any]]:
+    lines: List[str] = read_lines(file_path)
+    _header, index = parse_header(lines)
+    return parse_questions(lines, index)
 
 
 def formatquestion(hunter, question, answers, thisloc, therelocs):

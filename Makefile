@@ -27,8 +27,8 @@
 questions.pdf: questions.md
 	pandoc -s questions.md -o questions.pdf
 
-questions.md: parse-markdown.py iyra_questions.md ezra_questions.md sascha_questions.md locations.csv redherringlocations.csv
-	python3 parse-markdown.py >$@
+questions.md: parse_markdown.py iyra_questions.md ezra_questions.md sascha_questions.md locations.csv redherringlocations.csv
+	python3 parse_markdown.py >$@
 
 
 out-2019.tex: questions-iyra.tex questions-ezra.tex questions-sascha.tex locations.csv
