@@ -54,6 +54,14 @@ easter_egg_hunt_puzzles = [
 ]
 
 
+def print_md(qs):
+    """Prints the questions and answers in a readable format."""
+    for i, d in enumerate(qs):
+        print(f"{i+1}. {d['question']}\n\n")
+        for j, ans in enumerate(d["options"]):
+            print(f"    {j+1}. {ans}\n\n")
+
+
 def main():
     for i, d in enumerate(easter_egg_hunt_puzzles):
         print(f"{i+1}. {d['question']}\n\n")

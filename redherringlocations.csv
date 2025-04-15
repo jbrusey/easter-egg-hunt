@@ -1,12 +1,11 @@
-Room	Place
-Garage	On workbench
-Garage	In red container opposite door
-Garage	Under bike racks
-Garden shed	In bucket
-Garden shed	In the chest of drawers
-Greenhouse	Near a tomato plant
-Back garden	Small apple tree
-Back garden	Large apple tree
-Rear garage	on the shelf
-Rear garage	on the woodpile
-Front garden	Under magnolia
+Room,Place
+Garage,On workbench
+Garage,In red container opposite door
+Garage,Under bike racks
+Garden shed,In bucket
+Garden shed,In the chest of drawers
+Greenhouse,Near a tomato plant
+Back garden,Small apple tree
+Back garden,Large apple tree
+Rear garage,on the shelf
+Rear garage,on the woodpile

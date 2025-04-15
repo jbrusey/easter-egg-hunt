@@ -3,15 +3,16 @@
 J. Brusey, March, 2018 -- April, 2025
 """
 
+import pandas as pd
 from random import shuffle
 import csv
 import re
 import pandas as pd
 from typing import List, Tuple, Dict, Any
 
-HEAD = 1
-QUES = 2
-ANS = 3
+# Constants
+NQS: int = 12
+NAS: int = 3
 
 
 def read_lines(file_path: str) -> List[str]:
@@ -91,109 +92,118 @@ def parse_markdown(file_path: str) -> List[Dict[str, Any]]:
     return parse_questions(lines, index)
 
 
-def formatquestion(hunter, question, answers, thisloc, therelocs):
-    """format a question and the associated answers
+def format_question(
+    hunter: str,
+    question: str,
+    answers: List[str],
+    thisloc: Tuple[str, str],
+    therelocs: List[Tuple[str, str]],
+) -> str:
+    """Format a question and the associated answers.
 
-    hunter - this is the name of the person
-    question - question text
-    answers - list of three answers
-    thisloc - location where this egg should be placed
-    therelocs - 3 locations where the next egg should be found with only the first being the real location
+    Parameters:
+        hunter (str): Name of the person.
+        question (str): The question text.
+        answers (List[str]): List of three answers.
+        thisloc (Tuple[str, str]): Location where the egg should be placed.
+        therelocs (List[Tuple[str, str]]): Three locations for the next egg,
+            with only the first being the real location.
+
+    Returns:
+        str: The formatted question string.
     """
-
-    j = list(zip(answers, therelocs))
-
-    shuffle(j)
-    j = [f"    {i+1}. {al[0]} go to {al[1][1]}({al[1][0]})" for (i, al) in enumerate(j)]
-
-    ans = "\n\n".join(j)
-    return f"{thisloc[1]} ({thisloc[0]}): {hunter} {question}\n\n{ans}\n"
-
-
-NQS = 12
-NAS = 3
+    paired = list(zip(answers, therelocs))
+    shuffle(paired)
+    options = [
+        f"    {i + 1}. {answer} $\Rightarrow$ {loc[1]} ({loc[0]})"
+        for i, (answer, loc) in enumerate(paired)
+    ]
+    answers_str = "\n\n".join(options)
+    return f"{thisloc[1]} ({thisloc[0]}): ({hunter}) {question}\n\n{answers_str}\n"
 
 
-def main():
-    """main code"""
+def load_locations(locations_file: str, red_herring_file: str) -> List[Tuple[str, str]]:
+    """
+    Load locations from two CSV files, shuffle, and return as a list of tuples.
 
-    # locations = readlocations("locations.csv")
-    locations = pd.read_csv("locations.csv")
+    Rows that are entirely null are dropped.
+    If any row contains partial nulls, a ValueError is raised.
+    """
+    df_locations = pd.read_csv(locations_file)
+    df_locations = df_locations.sample(frac=1).reset_index(drop=True)
+    df_red = pd.read_csv(red_herring_file)
+    combined = pd.concat([df_locations, df_red], ignore_index=True)
 
-    # randomly shuffle locations
-    locations = locations.sample(frac=1).reset_index(drop=True)
+    # Drop rows where all columns are null.
+    combined = combined.dropna(how="all")
 
-    # add some red herring locations
-    locations = pd.concat(
-        [locations, pd.read_csv("redherringlocations.csv")], ignore_index=True
-    )
+    # Check for rows with partial nulls: Some fields are missing but not all.
+    partial_null = combined.isnull().any(axis=1) & ~combined.isnull().all(axis=1)
+    if partial_null.any():
+        raise ValueError("Encountered row with partial nulls")
 
-    # convert dataframe into array of tuples
-    locations = [tuple(row) for row in locations.itertuples(index=False)]
+    return [tuple(row) for row in combined.itertuples(index=False)]
 
-    # first person has locs 0-12, second has 13-25, etc.
-    hunter = ["Iyra", "Ezra", "Sascha"]
 
-    # parse the question file for each hunter and create a dict
-    # relating hunter to the set of questions
-    hunter_questions = {parse_markdown(h.lower() + "_questions.md") for h in hunter}
+def get_hunter_questions(hunters: List[str]) -> Dict[str, List[Dict[str, Any]]]:
+    """For each hunter, parse their markdown file of questions and return a dict mapping."""
+    return {h: parse_markdown(f"{h.lower()}_questions.md") for h in hunters}
 
-    # shuffle the questions for each hunter
-    for h in hunter:
-        shuffle(hunter_questions[h])
 
-    beforetext = ""
+def process_all(
+    hunters: List[str],
+    locations: List[Tuple[str, str]],
+    hunter_questions: Dict[str, List[Dict[str, Any]]],
+    nqs: int = NQS,
+    nas: int = NAS,
+    beforetext: str = "",
+    aftertext: str = "",
+) -> str:
+    """
+    Format all questions for all hunters and return the combined output.
 
-    aftertext = ""
-
-    # for each person, print the questions and answers
-    for person in range(len(hunter)):
-        h = hunter[person]
-        # locs is taken from nth lot of 13 questions
-        locs = [("Start clue", "")] + locations[person * NQS : (person + 1) * NQS]
-
-        # otherlocs is all locations excluding the correct locations for this person
-        otherlocs = list(locations[: person * NQS] + locations[(person + 1) * NQS :])
+    For each hunter the function:
+      - Determines a list of locations (the first is a static start clue)
+      - Selects the remaining locations from their allocated chunk
+      - Prepares 'other locations' from the rest of the locations for red herrings
+      - Formats each question by calling format_question.
+    """
+    output_lines = [beforetext] if beforetext else []
+    for person, h in enumerate(hunters):
+        # Select this hunter's dedicated locations and create a starting location
+        start_idx = person * nqs
+        end_idx = (person + 1) * nqs
+        locs: List[Tuple[str, str]] = [("Start clue", "")] + locations[
+            start_idx:end_idx
+        ]
+        # For red herrings, all locations not assigned to this hunter
+        otherlocs: List[Tuple[str, str]] = locations[:start_idx] + locations[end_idx:]
         shuffle(otherlocs)
-
-        # questions is nth lot of 13 questions
         questions = hunter_questions[h]
-
-        if person == 0:
-            print(beforetext)
-        #        print("% number of qs {}".format(len(questions)))
-        assert len(questions) == NQS
-
-        for i in range(NQS):
-
-            s = f"{i+1}. " + formatquestion(
-                hunter[person],
-                questions[i]["question"],
-                questions[i]["options"],
-                locs[i],
-                [locs[i + 1]] + otherlocs[i * (NAS - 1) : (i + 1) * (NAS - 1)],
+        if len(questions) != nqs:
+            raise ValueError(f"Expected {nqs} questions for {h}, got {len(questions)}")
+        for i in range(nqs):
+            formatted = f"{i+1}. " + format_question(
+                hunter=h,
+                question=questions[i]["question"],
+                answers=questions[i]["options"],
+                thisloc=locs[i],
+                therelocs=[locs[i + 1]]
+                + otherlocs[i * (nas - 1) : (i + 1) * (nas - 1)],
             )
-            print(s)
+            output_lines.append(formatted)
+    if aftertext:
+        output_lines.append(aftertext)
+    return "\n".join(output_lines)
 
-    print(aftertext)
 
-    # for line in f:
-    #     if state == HEAD:
-    #         if "\\item" in line:
-    #             state = QUES
-    #             aquestion.append(line)
-    #         else:
-    #             head.append(line)
-    #     elif state == QUES:
-    #         if "\\begin{enumerate}" in line:
-    #             print("ignoring "+repr(line))
-    #         elif "\\item" in line:
-    #             state = ANS
-    #             answers.append(line)
-    #         else:
-    #             aquestion.append(line) # multiline question
-    #     elif state == ANS:
-    #         answers.append(line)
+def main() -> None:
+    """Main function to run the whole process."""
+    locations = load_locations("locations.csv", "redherringlocations.csv")
+    hunters = ["Iyra", "Ezra", "Sascha"]
+    hunter_questions = get_hunter_questions(hunters)
+    output = process_all(hunters, locations, hunter_questions, nqs=NQS, nas=NAS)
+    print(output)
 
 
 if __name__ == "__main__":
