@@ -1,27 +1,3 @@
-1. Which type of semiconductor acts as a one-way pass through for current?
-
-    1. diode
-    2. transistor
-    3. inductor
-
-2. In Texas Hold 'Em, which is the better hand?
-
-    1. 4S 4D 2H 4H 4C
-    2. JH KC KH 10H 8H
-    3. 8S 8H 6D KH AH
-
-3. <1, 3, 6> x <4, 0.5, 10>
-
-    1. <27, 14, -11.5>
-    2. <22.5, 3, 10>
-    3. <4, 1.5, 60>
-
-4. Under what circumstance is it safest to operate electronics?
-
-    1. Deionized water
-    2. Ionized water
-    3. Both are equally bad
-
 5. An equilateral triangle has an altitude of $5\sqrt{3}$ cm. What is its perimeter?
 
 
@@ -116,3 +92,27 @@
 
 
     3. Chloroplast
+
+1. Which type of semiconductor acts as a one-way pass through for current?
+
+    1. diode
+    2. transistor
+    3. inductor
+
+2. In Texas Hold 'Em, which is the better hand?
+
+    1. 4S 4D 2H 4H 4C
+    2. JH KC KH 10H 8H
+    3. 8S 8H 6D KH AH
+
+4. Under what circumstance is it safest to operate electronics?
+
+    1. Deionized water
+    2. Ionized water
+    3. Both are equally bad
+
+3. $(1, 3, 6) \times (4, 0.5, 10)$
+
+    1. $(27, 14, -11.5)$
+    2. $(22.5, 3, 10)$
+    3. $(4, 1.5, 60)$
