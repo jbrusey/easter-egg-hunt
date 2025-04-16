@@ -111,7 +111,7 @@
 
     3. There are no real or imaginary solutions
 
-11. \includegraphics[width=2.79in]{./Pictures/1000020100000569000002EF3FF2F383D9EBCA64.png} What fraction of the bottle is full?
+11. \includegraphics[width=2.79in]{./Pictures/bottle.png} What fraction of the bottle is full?
 
 
     1. $\frac{2}{3}$
@@ -123,7 +123,7 @@
     3. $\frac{1}{2}$
 
 
-12. \includegraphics[width=2.1193in]{./Pictures/10000201000002DA000002A829868D1E6005353F.png} Find the shaded area
+12. \includegraphics[width=2.1193in]{./Pictures/12shaded.png} Find the shaded area
 
 
     1. $36\pi$
