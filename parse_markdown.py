@@ -101,27 +101,23 @@ def format_question(
     thisloc: Tuple[str, str],
     therelocs: List[Tuple[str, str]],
 ) -> str:
-    """Format a question and the associated answers.
-
-    Parameters:
-        hunter (str): Name of the person.
-        question (str): The question text.
-        answers (List[str]): List of three answers.
-        thisloc (Tuple[str, str]): Location where the egg should be placed.
-        therelocs (List[Tuple[str, str]]): Three locations for the next egg,
-            with only the first being the real location.
-
-    Returns:
-        str: The formatted question string.
-    """
     paired = list(zip(answers, therelocs))
     shuffle(paired)
-    options = [
-        f"    {i + 1}. {answer} $\Rightarrow$ {loc[1]} ({loc[0]})"
-        for i, (answer, loc) in enumerate(paired)
+    # Build lines for the 3 numbered answers
+    numbered_answers = [
+        rf"\item {ans} $\Rightarrow$ {loc[1]} ({loc[0]})"
+        for i, (ans, loc) in enumerate(paired)
     ]
-    answers_str = "\n\n".join(options)
-    return f"{thisloc[1]} ({thisloc[0]}): ({hunter}) {question}\n\n{answers_str}\n"
+    # Return LaTeX, one row in the table, with newlines
+    return "\n".join(
+        [
+            rf"{thisloc[1]} ({thisloc[0]}): ({hunter}) {question}",
+            r"\begin{enumerate}",
+            *numbered_answers,
+            r"\end{enumerate}\\",
+            r"\hline",
+        ]
+    )
 
 
 def load_locations(locations_file: str, red_herring_file: str) -> List[Tuple[str, str]]:
@@ -194,6 +190,12 @@ def process_all(
                 + otherlocs[i * (nas - 1) : (i + 1) * (nas - 1)],
             )
             output_lines.append(formatted)
+
+        # print final location
+        output_lines.append(
+            rf"{nqs+1}. {locs[-1][1]} ({locs[-1][0]}) \textbf{{Congratulations! You found them all}} \\[3ex]\hline"
+        )
+
     if aftertext:
         output_lines.append(aftertext)
     return "\n".join(output_lines)
@@ -204,7 +206,15 @@ def main() -> None:
     locations = load_locations("locations.csv", "redherringlocations.csv")
     hunters = ["Iyra", "Ezra", "Sascha"]
     hunter_questions = get_hunter_questions(hunters)
-    output = process_all(hunters, locations, hunter_questions, nqs=NQS, nas=NAS)
+    output = process_all(
+        hunters,
+        locations,
+        hunter_questions,
+        nqs=NQS,
+        nas=NAS,
+        beforetext=r"\renewcommand{\arraystretch}{1.3}\setlength{\extrarowheight}{1ex}\begin{longtable}{p{\textwidth}}",
+        aftertext=r"\end{longtable}",
+    )
     print(output)
 
 

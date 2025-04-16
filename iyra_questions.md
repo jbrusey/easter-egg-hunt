@@ -127,7 +127,7 @@
 
     3. 1.717
 
-12. What is the length of the top? ![](./Pictures/100002010000016C000000CDB373453C91976667.png){width="1.9689in" height="1.052in"}
+12. What is the length of the top? \includegraphics[width=1.9689in]{./Pictures/100002010000016C000000CDB373453C91976667.png}
 
 
     1. $\sqrt{71}$

@@ -1,3 +1,4 @@
+# test_parse_markdown.py
 import pytest
 import pandas as pd
 from io import StringIO
@@ -65,22 +66,29 @@ def test_parse_markdown(sample_file_path):
     assert questions[1]["options"][2] == "5"
 
 
-def test_format_question(monkeypatch):
+def test_format_question_latex(monkeypatch):
     hunter = "Alice"
     question = "What is 2+2?"
     answers = ["4", "3", "5"]
     thisloc = ("A1", "Start")
     therelocs = [("B1", "North"), ("C1", "East"), ("D1", "South")]
 
-    # Patch random.shuffle to preserve the original order for predictable output.
+    # Force a predictable shuffle
     monkeypatch.setattr("parse_markdown.shuffle", lambda x: None)
 
-    expected = (
-        "Start (A1): Alice What is 2+2?\n\n"
-        "    1. 4 go to North(B1)\n\n"
-        "    2. 3 go to East(C1)\n\n"
-        "    3. 5 go to South(D1)\n"
+    # Example LaTeX output you expect from format_question
+    expected = "\n".join(
+        [
+            r"Start (A1): (Alice) What is 2+2?",
+            r"\begin{enumerate}",
+            r"\item 4 $\Rightarrow$ North (B1)",
+            r"\item 3 $\Rightarrow$ East (C1)",
+            r"\item 5 $\Rightarrow$ South (D1)",
+            r"\end{enumerate}\\",
+            r"\hline",
+        ]
     )
+
     result = format_question(hunter, question, answers, thisloc, therelocs)
     assert result == expected
 

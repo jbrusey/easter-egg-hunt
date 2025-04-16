@@ -12,29 +12,24 @@
 # 4. run make
 
 
-# Notes:
-#
-# 1. I didn't do the locations update this year and it caused some
-# problems - e.g., missing location. I recommend that you find out how
-# parse_markdown.py works and ensure that it randomises the locations
-# properly.
-
-# 2. There is nothing printed for the last egg.
-
-# 3. It's easy to get confused about which one to stick on where.
-
-# 4. It would be better to output a long table to avoid questions and
-# their answers splitting over a page.
-
 questions.pdf: questions.md
-	pandoc questions.md -o questions.pdf \
+	pandoc questions.md -s -o questions.pdf \
 	    --pdf-engine=xelatex \
 	    -V documentclass=scrartcl \
 	    -V title="" \
 	    -V classoption=DIV=14 \
 	    -V pagestyle=empty \
-	    -V header-includes="\\usepackage{libertine}"
+	    -V header-includes="\\usepackage{libertine,longtable,graphicx,array}"
 #	    -V classoption=landscape \
+
+questions.tex: questions.md
+	pandoc questions.md -s -o $@ \
+	    --pdf-engine=xelatex \
+	    -V documentclass=scrartcl \
+	    -V title="" \
+	    -V classoption=DIV=14 \
+	    -V pagestyle=empty \
+	    -V header-includes="\\usepackage{libertine,longtable,graphicx,array}"
 
 
 questions.md: parse_markdown.py iyra_questions.md ezra_questions.md sascha_questions.md locations.csv redherringlocations.csv
@@ -44,3 +39,5 @@ questions.md: parse_markdown.py iyra_questions.md ezra_questions.md sascha_quest
 out-2019.tex: questions-iyra.tex questions-ezra.tex questions-sascha.tex locations.csv
 	python parse_latex.py >$@
 
+test:
+	python -m pytest
