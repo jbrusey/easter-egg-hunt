@@ -193,7 +193,7 @@ def process_all(
 
         # print final location
         output_lines.append(
-            rf"{nqs+1}. {locs[-1][1]} ({locs[-1][0]}) \textbf{{Congratulations! You found them all}} \\[3ex]\hline"
+            rf"{nqs+1}. {locs[-1][1]} ({locs[-1][0]}): ({h}) \textbf{{Congratulations! You found them all}} \\[3ex]\hline"
         )
 
     if aftertext:

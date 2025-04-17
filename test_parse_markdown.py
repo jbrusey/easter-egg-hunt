@@ -220,3 +220,15 @@ def test_process_all(monkeypatch):
     assert "AFTER" in output
     # Check that at least one dummy question text appears in the output
     assert "Test question 0" in output
+
+    # Check that the line that contains the word "Congratulations" also contains the word "Alice"
+
+    # start by splitting the output into lines
+    lines = output.split("\n")
+
+    # find the line that contains "Congratulations"
+    congrats_line = [line for line in lines if "Congratulations" in line]
+    assert len(congrats_line) == 1
+
+    # check that the line contains "Alice"
+    assert "Alice" in congrats_line[0]
