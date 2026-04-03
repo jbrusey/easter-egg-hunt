@@ -97,7 +97,7 @@ def test_format_question_latex(monkeypatch):
 def test_normalize_asset_paths():
     legacy = r"\includegraphics{./Pictures/example.png}"
     nested = r"\includegraphics{../../assets/images/example.png}"
-    expected = r"\includegraphics{../assets/images/example.png}"
+    expected = r"\includegraphics{assets/images/example.png}"
     assert normalize_asset_paths(legacy) == expected
     assert normalize_asset_paths(nested) == expected
 

@@ -18,9 +18,13 @@ NAS: int = 3
 
 
 def normalize_asset_paths(text: str) -> str:
-    """Normalize legacy/source-relative image paths for generated output files."""
-    return text.replace("./Pictures/", "../assets/images/").replace(
-        "../../assets/images/", "../assets/images/"
+    """Normalize legacy/source-relative image paths for generated output files.
+
+    Converts paths like ../../assets/images/ to assets/images/ so they
+    work correctly when pandoc runs from the project root.
+    """
+    return text.replace("../../assets/images/", "assets/images/").replace(
+        "./Pictures/", "assets/images/"
     )
 
 
