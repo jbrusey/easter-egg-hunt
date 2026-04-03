@@ -16,8 +16,8 @@ uv pip install pandas pytest
 
 # Build the question set
 make questions.md    # Generate normalized markdown questions file
-make questions.pdf    # Generate final printable PDF
-make questions.tex    # Generate LaTeX output
+make questions.pdf   # Generate final printable PDF
+make questions.tex   # Generate LaTeX output
 
 # Run tests
 python -m pytest
@@ -25,19 +25,41 @@ python -m pytest
 uv run pytest
 
 # Run a single test
-uv run pytest test_parse_markdown.py::test_parse_markdown -v
+uv run pytest tests/test_parse_markdown.py::test_parse_markdown -v
 ```
 
 ## Architecture Overview
 
+### Directory Structure
+
+```
+easter-egg-hunt/
+├── data/
+│   ├── questions/
+│   │   ├── iyra_questions.md
+│   │   ├── ezra_questions.md
+│   │   └── sascha_questions.md
+│   └── locations/
+│       ├── locations.csv
+│       └── redherringlocations.csv
+├── src/
+│   └── parse_markdown.py
+├── tests/
+│   └── test_parse_markdown.py
+├── archive/          # Archived/supplemental question files
+├── output/           # Generated PDFs and exports
+├── questions.md      # Normalized output (do NOT edit)
+└── questions.pdf     # Final printable PDF (do NOT edit)
+```
+
 ### Source Files (Source of Truth)
 
-1. **Question banks** - Three hunters, each with their own markdown file:
+1. **Question banks** - Three hunters, located in `data/questions/`:
    - `iyra_questions.md` - Math/science questions
    - `ezra_questions.md` - General knowledge questions
    - `sascha_questions.md` - Mixed questions (math, science, geography, history)
 
-2. **Location CSV files**:
+2. **Location CSV files** - Located in `data/locations/`:
    - `locations.csv` - Real hiding locations (~89 rows)
    - `redherringlocations.csv` - Fake locations to mislead hunters
 
@@ -46,16 +68,16 @@ uv run pytest test_parse_markdown.py::test_parse_markdown -v
 The build process flows as follows:
 
 ```
-[your questions]
+[Source files]
     │
-    ├── [iyra_questions.md]
-    ├── [ezra_questions.md]
-    ├── [sascha_questions.md]
+    ├── [data/questions/iyra_questions.md]
+    ├── [data/questions/ezra_questions.md]
+    ├── [data/questions/sascha_questions.md]
     │
-    ├── [locations.csv]
-    └── [redherringlocations.csv]
+    ├── [data/locations/locations.csv]
+    └── [data/locations/redherringlocations.csv]
     │
-    └──> parse_markdown.py
+    └──> src/parse_markdown.py
         │
         ├── process questions
         ├── shuffle answers
@@ -69,11 +91,14 @@ The build process flows as follows:
 
 ### Key Python Modules
 
-**`parse_markdown.py`** - Main build script:
-- Reads and parses markdown question files
+**`src/parse_markdown.py`** - Main build script:
+- Reads and parses markdown question files from `data/questions/`
+- Reads location data from `data/locations/`
 - Each question must have exactly 3 answers
 - Shuffles answer-to-location mappings for variety
 - Generates LaTeX output with longtable format
+
+**`tests/test_parse_markdown.py`** - Test suite for the parser.
 
 **`Makefile`** - Defines build targets:
 - `questions.md` - Generates questions from source markdown
@@ -83,7 +108,7 @@ The build process flows as follows:
 
 ### Question Markdown Format
 
-Each hunter's question file must follow this format:
+Each hunter's question file must follow this format (located in `data/questions/`):
 
 ```markdown
 Header Title
@@ -115,7 +140,7 @@ More header info
 
 ### CSV Schema
 
-Both location files must use this exact header:
+Both location files must use this exact header (located in `data/locations/`):
 
 ```csv
 Room,Place
@@ -131,13 +156,13 @@ Kitchen,In fridge on top shelf
 
 ### Generated Output
 
-The build produces these artifacts (do NOT hand-edit):
+The build produces these artifacts in the root directory (do NOT hand-edit):
 
 - `questions.md` - Generated normalized markdown
 - `questions.tex` - LaTeX source
 - `questions.pdf` - Final printable PDF
 
-Edit only the source files (`*_questions.md`, `locations.csv`, `redherringlocations.csv`).
+Edit only the source files (`data/questions/*_questions.md`, `data/locations/*.csv`).
 
 ## Common Issues and Fixes
 
