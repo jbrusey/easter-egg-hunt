@@ -30,6 +30,16 @@ uv pip install pandas pytest
 
 The build consumes a markdown question bank and CSV location files.
 
+* Repository layout
+
+- =src/=: Python logic (=parse_markdown.py=)
+- =data/questions/=: hunter question markdown files
+- =data/locations/=: CSV location inputs
+- =assets/images/=: image assets moved from legacy =Pictures/*=
+- =output/=: generated =questions.md=, =questions.tex=, =questions.pdf=
+- =tests/=: parser tests
+- =archive/=: legacy or obsolete historical files
+
 ** Question markdown format
 
 Each question must be a numbered top-level item, followed by exactly three indented numbered answers.
@@ -54,7 +64,7 @@ Rules:
 
 ** CSV schema for locations
 
-Both =locations.csv= and =redherringlocations.csv= must use this exact header:
+Both =data/locations/locations.csv= and =data/locations/redherringlocations.csv= must use this exact header:
 
 #+begin_example
 Room,Place
@@ -70,28 +80,28 @@ Expected format:
 Run the following exact make targets:
 
 #+begin_src bash
-make questions.md
-make questions.pdf
-make questions.tex
+make output/questions.md
+make output/questions.pdf
+make output/questions.tex
 #+end_src
 
 What they produce:
-- =make questions.md=: generated normalized markdown questions file
-- =make questions.tex=: generated LaTeX output
-- =make questions.pdf=: final printable PDF
+- =make output/questions.md=: generated normalized markdown questions file
+- =make output/questions.tex=: generated LaTeX output
+- =make output/questions.pdf=: final printable PDF
 
 * Source of truth vs generated artifacts
 
 Source-of-truth files (edit these):
 - Question source markdown file(s) used by the build
-- =locations.csv=
-- =redherringlocations.csv=
+- =data/locations/locations.csv=
+- =data/locations/redherringlocations.csv=
 - =Makefile= and Python/build scripts
 
 Generated artifacts (do not hand-edit):
-- =questions.md=
-- =questions.tex=
-- =questions.pdf=
+- =output/questions.md=
+- =output/questions.tex=
+- =output/questions.pdf=
 
 * Troubleshooting
 

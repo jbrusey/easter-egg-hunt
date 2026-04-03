@@ -1,11 +1,11 @@
-1. ![](./Pictures/100002010000016C000000CDB373453C91976667.png){width="1.9689in"
+1. ![](../assets/images/100002010000016C000000CDB373453C91976667.png){width="1.9689in"
 height="1.052in"} What is the length of the top?
 
     1. $\sqrt{71}$
 	2. 8
 	3. 9
 
-2. ![](./Pictures/10000201000001BA000000BFC055DED5ED953619.png){width="2.8575in"
+2. ![](../assets/images/10000201000001BA000000BFC055DED5ED953619.png){width="2.8575in"
 height="1.2346in"}
 How tall is the table?
 
@@ -13,7 +13,7 @@ How tall is the table?
 	2. 170
 	3. 130
 
-3. ![](./Pictures/100002010000020600000085E3D471D9E2CB695F.png){width="3.3075in"
+3. ![](../assets/images/100002010000020600000085E3D471D9E2CB695F.png){width="3.3075in"
 height="0.8492in"}
 Solve for x
 
@@ -21,7 +21,7 @@ Solve for x
 	2. $x=2$
 	3. $x=\sqrt{2}$
 	
-4. ![](./Pictures/1000020100000569000002EF3FF2F383D9EBCA64.png){width="2.7882in"
+4. ![](../assets/images/1000020100000569000002EF3FF2F383D9EBCA64.png){width="2.7882in"
 height="1.5138in"}
 What fraction of the bottle is full?
 
@@ -35,7 +35,7 @@ What fraction of the bottle is full?
 	2. $1$
 	3. 2
 	
-6. ![](./Pictures/10000201000002DA000002A829868D1E6005353F.png){width="2.1193in"
+6. ![](../assets/images/10000201000002DA000002A829868D1E6005353F.png){width="2.1193in"
 height="1.9807in"}
 Find the area shaded in blue
 

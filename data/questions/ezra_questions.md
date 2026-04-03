@@ -81,7 +81,7 @@
 
     3. Jupiter
 
-8. How tall is the table? \includegraphics[width=2.86in]{./Pictures/10000201000001BA000000BFC055DED5ED953619.png}
+8. How tall is the table? \includegraphics[width=2.86in]{../../assets/images/10000201000001BA000000BFC055DED5ED953619.png}
 
     1. 150
 
@@ -111,7 +111,7 @@
 
     3. There are no real or imaginary solutions
 
-11. \includegraphics[width=2.79in]{./Pictures/bottle.png} What fraction of the bottle is full?
+11. \includegraphics[width=2.79in]{../../assets/images/bottle.png} What fraction of the bottle is full?
 
 
     1. $\frac{2}{3}$
@@ -123,7 +123,7 @@
     3. $\frac{1}{2}$
 
 
-12. \includegraphics[width=2.1193in]{./Pictures/12shaded.png} Find the shaded area
+12. \includegraphics[width=2.1193in]{../../assets/images/12shaded.png} Find the shaded area
 
 
     1. $36\pi$

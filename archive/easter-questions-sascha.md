@@ -1,11 +1,11 @@
-1. What is the length of the top? ![](./Pictures/100002010000016C000000CDB373453C91976667.png){width="1.9689in"
+1. What is the length of the top? ![](../assets/images/100002010000016C000000CDB373453C91976667.png){width="1.9689in"
 height="1.052in"}
 
     1. $\sqrt{71}$
     2. $8$
     3. $\sqrt{80}$
 
-2. How tall is the table? ![](./Pictures/10000201000001BA000000BFC055DED5ED953619.png){width="2.8575in"
+2. How tall is the table? ![](../assets/images/10000201000001BA000000BFC055DED5ED953619.png){width="2.8575in"
 height="1.2346in"}
 
     1. 150
@@ -19,7 +19,7 @@ $x = \sqrt{1 + 2 \sqrt{ 1 + 3 \sqrt{1 + 4 \sqrt{ 1 + \cdots}}}}$
     2. $\sqrt{3}$
     3. 1.717
 
-4. ![](./Pictures/1000020100000569000002EF3FF2F383D9EBCA64.png){width="2.7882in"
+4. ![](../assets/images/1000020100000569000002EF3FF2F383D9EBCA64.png){width="2.7882in"
 height="1.5138in"}
 What fraction of the bottle is full?
 
@@ -33,7 +33,7 @@ What fraction of the bottle is full?
     2. $2$
     3. $2\pi$
 
-6. ![](./Pictures/10000201000002DA000002A829868D1E6005353F.png){width="2.1193in"
+6. ![](../assets/images/10000201000002DA000002A829868D1E6005353F.png){width="2.1193in"
 height="1.9807in"}
 Find the area shaded in blue
 
