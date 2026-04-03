@@ -4,7 +4,7 @@ import pandas as pd
 from io import StringIO
 import numpy as np
 
-from parse_markdown import (
+from src.parse_markdown import (
     NQS,
     NAS,
     load_locations,
@@ -12,6 +12,7 @@ from parse_markdown import (
     process_all,
     format_question,
     parse_markdown,
+    normalize_asset_paths,
 )
 
 
@@ -74,7 +75,7 @@ def test_format_question_latex(monkeypatch):
     therelocs = [("B1", "North"), ("C1", "East"), ("D1", "South")]
 
     # Force a predictable shuffle
-    monkeypatch.setattr("parse_markdown.shuffle", lambda x: None)
+    monkeypatch.setattr("src.parse_markdown.shuffle", lambda x: None)
 
     # Example LaTeX output you expect from format_question
     expected = "\n".join(
@@ -91,6 +92,14 @@ def test_format_question_latex(monkeypatch):
 
     result = format_question(hunter, question, answers, thisloc, therelocs)
     assert result == expected
+
+
+def test_normalize_asset_paths():
+    legacy = r"\includegraphics{./Pictures/example.png}"
+    nested = r"\includegraphics{../../assets/images/example.png}"
+    expected = r"\includegraphics{../assets/images/example.png}"
+    assert normalize_asset_paths(legacy) == expected
+    assert normalize_asset_paths(nested) == expected
 
 
 # --- Test for load_locations ---
@@ -177,7 +186,7 @@ def test_get_hunter_questions(monkeypatch):
         ]
 
     # Patch the module-level parse_markdown with our dummy.
-    monkeypatch.setattr("parse_markdown.parse_markdown", dummy_parse_markdown)
+    monkeypatch.setattr("src.parse_markdown.parse_markdown", dummy_parse_markdown)
     hunters = ["Alice", "Bob"]
     questions_dict = get_hunter_questions(hunters)
     assert set(questions_dict.keys()) == set(hunters)
@@ -202,7 +211,7 @@ def test_process_all(monkeypatch):
     hunter_questions = {"Alice": dummy_questions}
 
     # To test determinism, override shuffle in both format_question and process_all.
-    monkeypatch.setattr("parse_markdown.shuffle", lambda x: None)
+    monkeypatch.setattr("src.parse_markdown.shuffle", lambda x: None)
 
     # Override format_question to a simpler version, if desired.
     # (Here, we use the original implementation so we know what to expect.)

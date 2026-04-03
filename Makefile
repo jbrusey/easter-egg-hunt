@@ -12,8 +12,10 @@
 # 4. run make
 
 
-questions.pdf: questions.md
-	pandoc questions.md -s -o questions.pdf \
+OUTPUT_DIR := output
+
+$(OUTPUT_DIR)/questions.pdf: $(OUTPUT_DIR)/questions.md
+	pandoc $(OUTPUT_DIR)/questions.md -s -o $(OUTPUT_DIR)/questions.pdf \
 	    --pdf-engine=xelatex \
 	    -V documentclass=scrartcl \
 	    -V title="" \
@@ -22,8 +24,8 @@ questions.pdf: questions.md
 	    -V header-includes="\\usepackage{libertine,longtable,graphicx,array}"
 #	    -V classoption=landscape \
 
-questions.tex: questions.md
-	pandoc questions.md -s -o $@ \
+$(OUTPUT_DIR)/questions.tex: $(OUTPUT_DIR)/questions.md
+	pandoc $(OUTPUT_DIR)/questions.md -s -o $@ \
 	    --pdf-engine=xelatex \
 	    -V documentclass=scrartcl \
 	    -V title="" \
@@ -31,9 +33,8 @@ questions.tex: questions.md
 	    -V pagestyle=empty \
 	    -V header-includes="\\usepackage{libertine,longtable,graphicx,array}"
 
-
-questions.md: parse_markdown.py iyra_questions.md ezra_questions.md sascha_questions.md locations.csv redherringlocations.csv
-	python3 parse_markdown.py >$@
+$(OUTPUT_DIR)/questions.md: src/parse_markdown.py data/questions/iyra_questions.md data/questions/ezra_questions.md data/questions/sascha_questions.md data/locations/locations.csv data/locations/redherringlocations.csv
+	python3 src/parse_markdown.py >$@
 
 
 out-2019.tex: questions-iyra.tex questions-ezra.tex questions-sascha.tex locations.csv

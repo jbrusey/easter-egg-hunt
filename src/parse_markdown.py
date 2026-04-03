@@ -17,6 +17,13 @@ NQS: int = 12
 NAS: int = 3
 
 
+def normalize_asset_paths(text: str) -> str:
+    """Normalize legacy/source-relative image paths for generated output files."""
+    return text.replace("./Pictures/", "../assets/images/").replace(
+        "../../assets/images/", "../assets/images/"
+    )
+
+
 def read_lines(file_path: str) -> List[str]:
     with open(file_path, "r", encoding="utf-8") as file:
         return [line.rstrip() for line in file]
@@ -46,7 +53,8 @@ def parse_question(lines: List[str], i: int) -> Tuple[Tuple[str, str], int]:
     match = re.match(r"(\d+)\.\s+(.*)", question_text)
     if not match:
         raise ValueError(f"Invalid question format: '{question_text}'")
-    return match.groups(), i
+    q_number, q_body = match.groups()
+    return (q_number, normalize_asset_paths(q_body)), i
 
 
 def parse_answer(lines: List[str], i: int) -> Tuple[str, int]:
@@ -73,7 +81,7 @@ def parse_answer(lines: List[str], i: int) -> Tuple[str, int]:
     match = re.match(r"(\d+)\.\s+(.*)", ans_text)
     if not match:
         raise ValueError(f"Invalid answer format: '{ans_text}'")
-    return match.group(2), i
+    return normalize_asset_paths(match.group(2)), i
 
 
 def parse_questions(lines: List[str], i: int) -> List[Dict[str, Any]]:
@@ -145,7 +153,9 @@ def load_locations(locations_file: str, red_herring_file: str) -> List[Tuple[str
 
 def get_hunter_questions(hunters: List[str]) -> Dict[str, List[Dict[str, Any]]]:
     """For each hunter, parse their markdown file of questions and return a dict mapping."""
-    return {h: parse_markdown(f"{h.lower()}_questions.md") for h in hunters}
+    return {
+        h: parse_markdown(f"data/questions/{h.lower()}_questions.md") for h in hunters
+    }
 
 
 def process_all(
@@ -203,7 +213,9 @@ def process_all(
 
 def main() -> None:
     """Main function to run the whole process."""
-    locations = load_locations("locations.csv", "redherringlocations.csv")
+    locations = load_locations(
+        "data/locations/locations.csv", "data/locations/redherringlocations.csv"
+    )
     hunters = ["Iyra", "Ezra", "Sascha"]
     hunter_questions = get_hunter_questions(hunters)
     output = process_all(

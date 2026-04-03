@@ -1,3 +1,6 @@
 /__pycache__/
-/questions.md
-/questions.pdf
+/output/questions.md
+/output/questions.tex
+/output/questions.pdf
+
+**/__pycache__/
