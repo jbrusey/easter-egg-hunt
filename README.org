@@ -4,4 +4,124 @@
 
 This is the way we run easter egg hunts in my family.
 There is code - but it is not a web-site.
-Instead, the code produces LaTeX output that can be printed and the prints are then cut up, stuck to individual eggs, and the eggs deposited in some location in the house. 
+Instead, the code produces LaTeX output that can be printed and the prints are then cut up, stuck to individual eggs, and the eggs deposited in some location in the house.
+
+* Prerequisites
+
+You need the following installed before building the question set:
+
+- Python 3.10+
+- =uv=
+- Python packages:
+  - =pandas=
+  - =pytest=
+- =pandoc=
+- A TeX distribution with the XeLaTeX engine (=xelatex=)
+
+A quick default setup with =uv=:
+
+#+begin_src bash
+uv venv
+source .venv/bin/activate
+uv pip install pandas pytest
+#+end_src
+
+* Inputs and expected formats
+
+The build consumes a markdown question bank and CSV location files.
+
+** Question markdown format
+
+Each question must be a numbered top-level item, followed by exactly three indented numbered answers.
+
+Example:
+
+#+begin_example
+1. What color are most grass lawns?
+   1. Red
+   2. Green
+   3. Blue
+2. Which animal says "meow"?
+   1. Cat
+   2. Dog
+   3. Cow
+#+end_example
+
+Rules:
+- Question lines are top-level numbered items (e.g. =1. ...=).
+- Answer lines are indented and numbered (e.g. three spaces + =1. ...=).
+- Each question must have exactly 3 answers.
+
+** CSV schema for locations
+
+Both =locations.csv= and =redherringlocations.csv= must use this exact header:
+
+#+begin_example
+Room,Place
+#+end_example
+
+Expected format:
+- Two columns only: =Room= and =Place=
+- No partial-null rows (for example, a room with an empty place, or vice versa)
+- UTF-8 plain CSV
+
+* Build commands
+
+Run the following exact make targets:
+
+#+begin_src bash
+make questions.md
+make questions.pdf
+make questions.tex
+#+end_src
+
+What they produce:
+- =make questions.md=: generated normalized markdown questions file
+- =make questions.tex=: generated LaTeX output
+- =make questions.pdf=: final printable PDF
+
+* Source of truth vs generated artifacts
+
+Source-of-truth files (edit these):
+- Question source markdown file(s) used by the build
+- =locations.csv=
+- =redherringlocations.csv=
+- =Makefile= and Python/build scripts
+
+Generated artifacts (do not hand-edit):
+- =questions.md=
+- =questions.tex=
+- =questions.pdf=
+
+* Troubleshooting
+
+** Parse/build fails due to wrong indentation
+
+Symptoms:
+- Parser complains about malformed answers
+- Questions are detected but answers are missing
+
+Fix:
+- Ensure each answer is indented under its question
+- Keep numbered format for all three answers
+- Use spaces consistently (avoid mixed tab/space indentation)
+
+** Parse/build fails due to wrong number of questions
+
+Symptoms:
+- Validation or tests fail with question count mismatch
+
+Fix:
+- Confirm the source question file has the expected number of top-level question entries
+- Ensure each question starts with a numbered item marker and is not accidentally nested
+
+** Parse/build fails due to CSV partial null rows
+
+Symptoms:
+- CSV processing errors
+- Missing location values during build
+
+Fix:
+- Remove rows where =Room= or =Place= is blank
+- Ensure both columns are present on every non-header row
+- Re-save as standard CSV and re-run the make target
