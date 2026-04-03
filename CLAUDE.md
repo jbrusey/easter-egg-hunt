@@ -15,9 +15,8 @@ source .venv/bin/activate
 uv pip install pandas pytest
 
 # Build the question set
-make questions.md    # Generate normalized markdown questions file
-make questions.pdf   # Generate final printable PDF
-make questions.tex   # Generate LaTeX output
+make output/questions.md     # Generate normalized markdown questions file
+make output/questions.pdf    # Generate final printable PDF
 
 # Run tests
 python -m pytest
@@ -47,9 +46,11 @@ easter-egg-hunt/
 ├── tests/
 │   └── test_parse_markdown.py
 ├── archive/          # Archived/supplemental question files
-├── output/           # Generated PDFs and exports
-├── questions.md      # Normalized output (do NOT edit)
-└── questions.pdf     # Final printable PDF (do NOT edit)
+├── output/           # Generated PDFs and exports (do NOT edit)
+│   ├── questions.md
+│   ├── questions.tex
+│   └── questions.pdf
+└── README.org
 ```
 
 ### Source Files (Source of Truth)
@@ -83,10 +84,10 @@ The build process flows as follows:
         ├── shuffle answers
         └── map to locations
             │
-            ├──> questions.md (normalized markdown)
+            ├──> output/questions.md (normalized markdown)
             │   │
-            ├──> questions.tex
-            └───> questions.pdf
+            ├──> output/questions.tex
+            └───> output/questions.pdf
 ```
 
 ### Key Python Modules
@@ -101,9 +102,9 @@ The build process flows as follows:
 **`tests/test_parse_markdown.py`** - Test suite for the parser.
 
 **`Makefile`** - Defines build targets:
-- `questions.md` - Generates questions from source markdown
-- `questions.tex` - LaTeX source for PDF generation
-- `questions.pdf` - Final printable PDF (uses pandoc with xelatex)
+- `output/questions.md` - Generates normalized markdown from source questions
+- `output/questions.tex` - LaTeX source for PDF generation
+- `output/questions.pdf` - Final printable PDF (uses pandoc with xelatex)
 - `test` - Runs pytest
 
 ### Question Markdown Format
@@ -156,11 +157,11 @@ Kitchen,In fridge on top shelf
 
 ### Generated Output
 
-The build produces these artifacts in the root directory (do NOT hand-edit):
+The build produces these artifacts in the `output/` directory (do NOT hand-edit):
 
-- `questions.md` - Generated normalized markdown
-- `questions.tex` - LaTeX source
-- `questions.pdf` - Final printable PDF
+- `output/questions.md` - Generated normalized markdown
+- `output/questions.tex` - LaTeX source
+- `output/questions.pdf` - Final printable PDF
 
 Edit only the source files (`data/questions/*_questions.md`, `data/locations/*.csv`).
 
