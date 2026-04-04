@@ -16,32 +16,17 @@ from src.parse_markdown import (
 )
 
 
+def _build_question_block(question_number: int, answer_numbers=(1, 2, 3)) -> str:
+    answer_lines = "\n".join(
+        [f"    {answer_no}. Option {question_number}-{answer_no}" for answer_no in answer_numbers]
+    )
+    return f"{question_number}. Question {question_number}?\n\n{answer_lines}\n"
+
+
 @pytest.fixture
 def sample_file_path(tmp_path):
-    content = (
-        "Header Title\n"
-        "More header info\n"
-        "\n"
-        "1. What is the capital of France?\n"
-        "Additional question info.\n"
-        "\n"
-        "    1. Paris\n"
-        "    extra details\n"
-        "\n"
-        "    2. Lyon\n"
-        "\n"
-        "    3. Marseille\n"
-        "\n"
-        "2. What is 2+2?\n"
-        "Simple math question.\n"
-        "\n"
-        "    1. 3\n"
-        "    continued explanation.\n"
-        "\n"
-        "    2. 4\n"
-        "\n"
-        "    3. 5\n"
-    )
+    question_blocks = [_build_question_block(i) for i in range(1, NQS + 1)]
+    content = "Header Title\nMore header info\n\n" + "\n".join(question_blocks)
     file_path = tmp_path / "sample.md"
     file_path.write_text(content)
     return file_path
@@ -49,22 +34,17 @@ def sample_file_path(tmp_path):
 
 def test_parse_markdown(sample_file_path):
     questions = parse_markdown(str(sample_file_path))
-    assert len(questions) == 2
+    assert len(questions) == NQS
 
-    # Verify the first question and its answers.
-    assert (
-        questions[0]["question"]
-        == "What is the capital of France? Additional question info."
-    )
-    assert questions[0]["options"][0] == "Paris extra details"
-    assert questions[0]["options"][1] == "Lyon"
-    assert questions[0]["options"][2] == "Marseille"
+    assert questions[0]["question"] == "Question 1?"
+    assert questions[0]["options"] == ["Option 1-1", "Option 1-2", "Option 1-3"]
 
-    # Verify the second question and its answers.
-    assert questions[1]["question"] == "What is 2+2? Simple math question."
-    assert questions[1]["options"][0] == "3 continued explanation."
-    assert questions[1]["options"][1] == "4"
-    assert questions[1]["options"][2] == "5"
+    assert questions[-1]["question"] == f"Question {NQS}?"
+    assert questions[-1]["options"] == [
+        f"Option {NQS}-1",
+        f"Option {NQS}-2",
+        f"Option {NQS}-3",
+    ]
 
 
 def test_format_question_latex(monkeypatch):
@@ -100,6 +80,42 @@ def test_normalize_asset_paths():
     expected = r"\includegraphics{assets/images/example.png}"
     assert normalize_asset_paths(legacy) == expected
     assert normalize_asset_paths(nested) == expected
+
+
+def test_parse_markdown_fails_on_out_of_order_question_numbers(tmp_path):
+    numbers = list(range(1, NQS + 1))
+    numbers[4], numbers[5] = numbers[5], numbers[4]
+    content = "\n".join(_build_question_block(i) for i in numbers)
+    file_path = tmp_path / "out_of_order.md"
+    file_path.write_text(content)
+
+    with pytest.raises(ValueError, match=r"out_of_order\.md: question index 5 has number 6"):
+        parse_markdown(str(file_path))
+
+
+def test_parse_markdown_fails_on_duplicate_question_numbers(tmp_path):
+    numbers = list(range(1, NQS + 1))
+    numbers[6] = 6
+    content = "\n".join(_build_question_block(i) for i in numbers)
+    file_path = tmp_path / "duplicate.md"
+    file_path.write_text(content)
+
+    with pytest.raises(ValueError, match=r"duplicate\.md: question index 7 has number 6"):
+        parse_markdown(str(file_path))
+
+
+def test_parse_markdown_fails_on_malformed_answer_numbering(tmp_path):
+    blocks = [_build_question_block(i) for i in range(1, NQS + 1)]
+    blocks[2] = _build_question_block(3, answer_numbers=(1, 3, 4))
+    content = "\n".join(blocks)
+    file_path = tmp_path / "bad_answers.md"
+    file_path.write_text(content)
+
+    with pytest.raises(
+        ValueError,
+        match=r"bad_answers\.md: question index 3 has malformed answer numbering",
+    ):
+        parse_markdown(str(file_path))
 
 
 # --- Test for load_locations ---
