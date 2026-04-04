@@ -61,7 +61,7 @@ def parse_question(lines: List[str], i: int) -> Tuple[Tuple[str, str], int]:
     return (q_number, normalize_asset_paths(q_body)), i
 
 
-def parse_answer(lines: List[str], i: int) -> Tuple[str, int]:
+def parse_answer(lines: List[str], i: int) -> Tuple[Tuple[str, str], int]:
     while i < len(lines) and not lines[i].strip():
         i += 1
     if i >= len(lines) or not (
@@ -85,25 +85,47 @@ def parse_answer(lines: List[str], i: int) -> Tuple[str, int]:
     match = re.match(r"(\d+)\.\s+(.*)", ans_text)
     if not match:
         raise ValueError(f"Invalid answer format: '{ans_text}'")
-    return normalize_asset_paths(match.group(2)), i
+    a_number, a_body = match.groups()
+    return (a_number, normalize_asset_paths(a_body)), i
 
 
-def parse_questions(lines: List[str], i: int) -> List[Dict[str, Any]]:
+def parse_questions(lines: List[str], i: int, file_path: str) -> List[Dict[str, Any]]:
     questions: List[Dict[str, Any]] = []
     while i < len(lines):
         (q_number, q_body), i = parse_question(lines, i)
+
+        expected_q_number = str(len(questions) + 1)
+        if q_number != expected_q_number:
+            raise ValueError(
+                f"{file_path}: question index {len(questions) + 1} has number {q_number}"
+            )
+
         answers: List[str] = []
-        for _ in range(3):
-            ans_body, i = parse_answer(lines, i)
+        answer_numbers: List[str] = []
+        for _ in range(NAS):
+            (a_number, ans_body), i = parse_answer(lines, i)
             answers.append(ans_body)
+            answer_numbers.append(a_number)
+
+        if answer_numbers != ["1", "2", "3"]:
+            raise ValueError(
+                f"{file_path}: question index {len(questions) + 1} has malformed answer numbering"
+            )
+
         questions.append({"question": q_body, "options": answers})
+
+    if len(questions) != NQS:
+        raise ValueError(
+            f"{file_path}: question index {len(questions) + 1} expected {NQS} questions"
+        )
+
     return questions
 
 
 def parse_markdown(file_path: str) -> List[Dict[str, Any]]:
     lines: List[str] = read_lines(file_path)
     _header, index = parse_header(lines)
-    return parse_questions(lines, index)
+    return parse_questions(lines, index, file_path)
 
 
 def format_question(
