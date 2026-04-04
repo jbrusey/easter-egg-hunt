@@ -12,11 +12,11 @@
 	Find $PA$.
 
 12. Evaluate
-   \[
-   P=\left(1-2\cos\frac{2\pi}{7}\right)
-   \left(1-2\cos\frac{4\pi}{7}\right)
-   \left(1-2\cos\frac{6\pi}{7}\right).
-   \]
+	\begin{equation}
+	P=\left(1-2\cos\frac{2\pi}{7}\right)
+	\left(1-2\cos\frac{4\pi}{7}\right)
+	\left(1-2\cos\frac{6\pi}{7}\right).
+	\end{equation}
 
     1. $-1$
     2. $1$
