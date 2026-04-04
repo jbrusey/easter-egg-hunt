@@ -1,74 +1,74 @@
 1. Which countries do the cities of Perth, Adelaide, and Brisbane belong to?
 
-   1. Australia
+    1. Australia
 
-   2. Tahiti
+    2. Tahiti
 
-   3. South Africa
+    3. South Africa
 
 2. Who was the first woman to receive a nobel prize in 1903?
 
-   1. Marie Curie
+    1. Marie Curie
 
-   2. Jocelyn Bell
+    2. Jocelyn Bell
 
-   3. Selma Lagerlöf
+    3. Selma Lagerlöf
 
 3. What is the smallest country in the world?
 
-   1. Vatican City
+    1. Vatican City
 
-   2. Liechtenstein
+    2. Liechtenstein
 
-   3. Micronesia
+    3. Micronesia
 
 4. What country has the most natural lakes?
 
-   1. Canada
+    1. Canada
 
-   2. USA
+    2. USA
 
-   3. Russia
+    3. Russia
 
 5. What colour is blood when it is not carrying oxygen?
 
-   1. Dark red
+    1. Dark red
 
-   2. Blue
+    2. Blue
 
-   3. Pink
+    3. Pink
 
 6. What year was the United Nations established?
 
-   1. 1945
+    1. 1945
 
-   2. 1947
+    2. 1947
 
-   3. 1957
+    3. 1957
 
 7. Which planet has the most moons in our solar system?
 
-   1. Saturn
+    1. Saturn
 
-   2. Earth
+    2. Earth
 
-   3. Jupiter
+    3. Jupiter
 
 8. How tall is the table? \includegraphics[width=2.86in]{../../assets/images/10000201000001BA000000BFC055DED5ED953619.png}
 
-   1. 150
+    1. 150
 
-   2. 140
+    2. 140
 
-   3. 170
+    3. 170
 
 9. If $2x - 4y = 3$, what is the value of $\frac{16^x}{256^y}$
 
-   1. $64$
+    1. $64$
 
-   2. $2048$
+    2. $2048$
 
-   3. It's not possible to answer
+    3. It's not possible to answer
 
 10. Solve for both values of x, $x^2-2x+3$
 
