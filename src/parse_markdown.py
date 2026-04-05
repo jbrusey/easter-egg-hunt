@@ -9,6 +9,7 @@ import pandas as pd
 from random import shuffle
 import csv
 import re
+import argparse
 import pandas as pd
 from typing import List, Tuple, Dict, Any
 
@@ -177,11 +178,57 @@ def load_locations(locations_file: str, red_herring_file: str) -> List[Tuple[str
     return [tuple(row) for row in combined.itertuples(index=False)]
 
 
-def get_hunter_questions(hunters: List[str]) -> Dict[str, List[Dict[str, Any]]]:
+def get_hunter_questions(
+    hunters: List[str], questions_dir: str
+) -> Dict[str, List[Dict[str, Any]]]:
     """For each hunter, parse their markdown file of questions and return a dict mapping."""
     return {
-        h: parse_markdown(f"data/questions/{h.lower()}_questions.md") for h in hunters
+        h: parse_markdown(f"{questions_dir}/{h.lower()}_questions.md") for h in hunters
     }
+
+
+def parse_args() -> argparse.Namespace:
+    """Parse command line arguments with backwards-compatible defaults."""
+    parser = argparse.ArgumentParser(
+        description="Parse hunter markdown questions and emit formatted output."
+    )
+    parser.add_argument(
+        "--hunters",
+        nargs="+",
+        default=["Iyra", "Ezra", "Sascha"],
+        help="Ordered list of hunter names (default: Iyra Ezra Sascha).",
+    )
+    parser.add_argument(
+        "--questions-dir",
+        default="data/questions",
+        help="Directory containing <hunter>_questions.md files (default: data/questions).",
+    )
+    parser.add_argument(
+        "--locations-file",
+        default="data/locations/locations.csv",
+        help="Primary locations CSV path (default: data/locations/locations.csv).",
+    )
+    parser.add_argument(
+        "--red-herring-file",
+        default="data/locations/redherringlocations.csv",
+        help=(
+            "Red herring locations CSV path "
+            "(default: data/locations/redherringlocations.csv)."
+        ),
+    )
+    parser.add_argument(
+        "--nqs",
+        type=int,
+        default=NQS,
+        help=f"Number of questions per hunter (default: {NQS}).",
+    )
+    parser.add_argument(
+        "--nas",
+        type=int,
+        default=NAS,
+        help=f"Number of answers per question (default: {NAS}).",
+    )
+    return parser.parse_args()
 
 
 def process_all(
@@ -239,17 +286,16 @@ def process_all(
 
 def main() -> None:
     """Main function to run the whole process."""
-    locations = load_locations(
-        "data/locations/locations.csv", "data/locations/redherringlocations.csv"
-    )
-    hunters = ["Iyra", "Ezra", "Sascha"]
-    hunter_questions = get_hunter_questions(hunters)
+    args = parse_args()
+    locations = load_locations(args.locations_file, args.red_herring_file)
+    hunters = args.hunters
+    hunter_questions = get_hunter_questions(hunters, args.questions_dir)
     output = process_all(
         hunters,
         locations,
         hunter_questions,
-        nqs=NQS,
-        nas=NAS,
+        nqs=args.nqs,
+        nas=args.nas,
         beforetext=r"\renewcommand{\arraystretch}{1.3}\setlength{\extrarowheight}{1ex}\begin{longtable}{p{\textwidth}}",
         aftertext=r"\end{longtable}",
     )
