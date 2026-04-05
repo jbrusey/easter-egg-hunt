@@ -90,6 +90,40 @@ What they produce:
 - =make output/questions.tex=: generated LaTeX output
 - =make output/questions.pdf=: final printable PDF
 
+** Configure hunters explicitly
+
+The build now passes hunter and input settings explicitly via CLI arguments in the =Makefile=.
+
+Default hunters:
+- =Iyra=
+- =Ezra=
+- =Sascha=
+
+To add a hunter:
+1. Create a question file named =data/questions/<hunter-lowercase>_questions.md=
+   (example: =data/questions/alex_questions.md=).
+2. Update =HUNTERS= in the =Makefile= to include the new name, for example:
+
+#+begin_src makefile
+HUNTERS := Iyra Ezra Sascha Alex
+#+end_src
+
+To remove a hunter:
+1. Remove the hunter name from =HUNTERS= in the =Makefile=.
+2. Optionally remove or archive their question file from =data/questions/=.
+
+You can also run the parser directly without =make=:
+
+#+begin_src bash
+python3 src/parse_markdown.py \
+  --hunters Iyra Ezra Sascha \
+  --questions-dir data/questions \
+  --locations-file data/locations/locations.csv \
+  --red-herring-file data/locations/redherringlocations.csv \
+  --nqs 12 \
+  --nas 3
+#+end_src
+
 * Source of truth vs generated artifacts
 
 Source-of-truth files (edit these):

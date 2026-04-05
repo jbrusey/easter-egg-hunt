@@ -9,6 +9,12 @@
 
 
 OUTPUT_DIR := output
+HUNTERS := Iyra Ezra Sascha
+QUESTIONS_DIR := data/questions
+LOCATIONS_FILE := data/locations/locations.csv
+RED_HERRING_FILE := data/locations/redherringlocations.csv
+NQS := 12
+NAS := 3
 
 questions.pdf: $(OUTPUT_DIR)/questions.pdf
 
@@ -36,7 +42,13 @@ $(OUTPUT_DIR)/questions.tex: $(OUTPUT_DIR)/questions.md
 questions.md: $(OUTPUT_DIR)/questions.md
 
 $(OUTPUT_DIR)/questions.md: src/parse_markdown.py data/questions/iyra_questions.md data/questions/ezra_questions.md data/questions/sascha_questions.md data/locations/locations.csv data/locations/redherringlocations.csv
-	python3 src/parse_markdown.py >$@
+	python3 src/parse_markdown.py \
+	    --hunters $(HUNTERS) \
+	    --questions-dir $(QUESTIONS_DIR) \
+	    --locations-file $(LOCATIONS_FILE) \
+	    --red-herring-file $(RED_HERRING_FILE) \
+	    --nqs $(NQS) \
+	    --nas $(NAS) >$@
 
 test:
 	python -m pytest
