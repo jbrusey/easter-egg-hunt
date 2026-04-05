@@ -1,87 +1,115 @@
-1. An equilateral triangle has an altitude of $5\sqrt{3}$ cm. What is its perimeter?
+1. If $x + \frac{1}{x} = 3$, what is $x^2 + \frac{1}{x^2}$?
 
-    1. 30 cm
+    1. $7$
 
-    2. 25 cm
+    2. $5$
 
-    3. 20 cm
+    3. $9$
 
-2. What is the output of the Python expression: `3 * (1 + 2**2) - 5`?
+2. A number leaves remainder 1 when divided by 2, 3, and 4. What is the smallest such number?
 
-    1. 10
+    1. $13$
 
-    2. 12
+    2. $25$
 
-    3. 8
+    3. $49$
 
-3. Given a function $f(x)$ satisfying $f(x+y)=f(x)f(y)$ for all real numbers and $f(1)=2$, what is $f(5)$?
+3. How many diagonals does a hexagon have?
 
-    1. 32
+    1. $9$
 
-    2. 10
+    2. $6$
 
-    3. 8
+    3. $12$
 
-4. Which ancient civilization is known for its codified law system, including the Code of Hammurabi?
+4. If all Bloops are Razzies and some Razzies are Lazzies, which must be true?
 
-    1. Babylon
+    1. Some Bloops may be Lazzies
 
-    2. Rome
+    2. All Bloops are Lazzies
 
-    3. Greece
+    3. No Bloops are Lazzies
 
-5. Which painting technique involves applying thick layers of paint to create texture on the canvas?
+5. A 3-digit number has digits that sum to 15. If the digits are all different and increasing, how many such numbers exist?
 
-    1. Impasto
+    1. $8$
 
-    2. Sfumato
+    2. $6$
 
-    3. Fresco
+    3. $10$
 
-6. Which fundamental force is responsible for keeping the planets in orbit around the sun?
+6. You roll two fair dice. What is the probability the sum is 8?
 
-    1. Gravity
+    1. $\frac{5}{36}$
 
-    2. Electromagnetism
+    2. $\frac{1}{6}$
 
-    3. Strong nuclear force
+    3. $\frac{1}{9}$
 
-7. Which element is often referred to as the 'building block' for organic molecules?
+7. A sequence is defined by $a_{n+1} = a_n + n$, with $a_1 = 1$. What is $a_5$?
 
-    1. Carbon
+    1. $11$
 
-    2. Oxygen
+    2. $10$
 
-    3. Nitrogen
+    3. $15$
 
-8. Which cellular structure is known as the powerhouse of the cell?
+8. A clock shows 3:00. What is the angle between the hands?
 
-    1. Mitochondrion
+    1. $90^\circ$
 
-    2. Ribosome
+    2. $75^\circ$
 
-    3. Chloroplast
+    3. $120^\circ$
 
-9. Which type of semiconductor acts as a one-way pass through for current?
+9. A function satisfies $f(x+1) = f(x) + 2x + 1$, with $f(0)=0$. What is $f(3)$?
 
-    1. diode
-    2. transistor
-    3. inductor
+    1. $9$
 
-10. In Texas Hold 'Em, which is the better hand?
+    2. $6$
 
-    1. 4S 4D 2H 4H 4C
-    2. JH KC KH 10H 8H
-    3. 8S 8H 6D KH AH
+    3. $12$
 
-11. Under what circumstance is it safest to operate electronics?
+10. How many ways can you arrange the letters of “LEVEL”?
 
-    1. Deionized water
-    2. Ionized water
-    3. Both are equally bad
+    1. $30$
 
-12. $(1, 3, 6) \times (4, 0.5, 10)$
+    2. $60$
 
-    1. $(27, 14, -11.5)$
-    2. $(22.5, 3, 10)$
-    3. $(4, 1.5, 60)$
+    3. $120$
+
+11. Find the sum of all solutions to $|x-2| + |x+2| = 6$
+
+    1. $0$
+
+    2. $4$
+
+    3. $-4$
+
+12. Let $a,b,c>0$ and $abc=1$. What is the minimum value of
+[
+a + b + c
+]
+
+    1. $3$
+
+    2. $1$
+
+    3. $0$
+
+36. A graph has 6 vertices, each connected to every other vertex. How many edges does it have?
+
+    1. $15$
+
+    2. $12$
+
+    3. $30$
+
+37. Let $x, y, z > 0$ with $x + y + z = 1$. What is the maximum value of $xy + yz + zx$
+
+    1. $\frac{1}{3}$
+
+    2. $\frac{1}{4}$
+    
+    3. $\frac{1}{2}$
+

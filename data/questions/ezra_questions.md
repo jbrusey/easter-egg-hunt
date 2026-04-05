@@ -1,95 +1,103 @@
-1. Which countries do the cities of Perth, Adelaide, and Brisbane belong to?
+1.  The polynomial $n^2 + n + 41$ is prime for every natural n up to a certain value. What is the lowest non-prime value the polynomial can take?
 
-    1. Australia
+    1. 1681
 
-    2. Tahiti
+    2. 1601
 
-    3. South Africa
+    3. 1763
 
-2. Who was the first woman to receive a nobel prize in 1903?
+2.  There are 10 statements in a list, numbered 1 to 10. Each is of the form “There are at least n false statements in this list”, where n is the number of the statement. Which is correct?
 
-    1. Marie Curie
+    1. The ninth
 
-    2. Jocelyn Bell
+    2. The fifth
 
-    3. Selma Lagerlöf
+    3. The eighth
 
-3. What is the smallest country in the world?
+3. Dice one is a standard six-sided die, and dice two is a similar die, but with 3 faces showing the value 3, and 3 showing 2. What is the probability that when both are rolled, dice one has a higher value than dice two?
 
-    1. Vatican City
+    1. 7/12
 
-    2. Liechtenstein
+    2. 1/2
 
-    3. Micronesia
+    3. 3/4
 
-4. What country has the most natural lakes?
+4. How many zeroes are at the end of 100! ?
 
-    1. Canada
+    1. 24
 
-    2. USA
+    2. 25
 
-    3. Russia
+    3. 20
 
-5. What colour is blood when it is not carrying oxygen?
+5. What is the units digit of $7^2026$?
 
-    1. Dark red
+    1. 9
 
-    2. Blue
+    2. 7
 
-    3. Pink
+    3. 1
 
-6. What year was the United Nations established?
+6. What is the sum of the digits of $2^15$?
 
-    1. 1945
+    1. 26
 
-    2. 1947
+    2. 27
 
-    3. 1957
+    3. 25
 
-7. Which planet has the most moons in our solar system?
+7. How many integer solutions are there to $x^2 + y^2 = 45$?
 
-    1. Saturn
+    1. 8
 
-    2. Earth
+    2. 5
 
-    3. Jupiter
+    3. 6
 
-8. How tall is the table? \includegraphics[width=2.86in]{../../assets/images/10000201000001BA000000BFC055DED5ED953619.png}
+8. What is the largest prime factor of $2^10 - 1$?
 
-    1. 150
+    1. 31
 
-    2. 140
+    2. 33
 
-    3. 170
+    3. 17
 
-9. If $2x - 4y = 3$, what is the value of $\frac{16^x}{256^y}$
+9. How many positive integers less than 100 are there which are coprime to 100?
 
-    1. $64$
+    1. 40
 
-    2. $2048$
+    2. 60
 
-    3. It's not possible to answer
+    3. 36
 
-10. Solve for both values of x, $x^2-2x+3$
+10. How many subsets of $\left\{1,2,3,4,5\right\}$ have an even sum?
 
-    1. $x=1-i\sqrt{3}, 1+i\sqrt{3}$
+    1. 16
 
-    2. $x=1\pm\sqrt{3}$
+    2. 12
 
-    3. There are no real or imaginary solutions
+    3. 20
 
-11. \includegraphics[width=2.79in]{../../assets/images/bottle.png} What fraction of the bottle is full?
+11. What support hero does Iyra main in Overwatch?
 
-    1. $\frac{2}{3}$
+    1. Baptiste
 
-    2. $\frac{1}{3}$
+    2. Ana
 
-    3. $\frac{1}{2}$
+    3. Moira
 
-12. \includegraphics[width=2.1193in]{../../assets/images/12shaded.png} Find the shaded area
+12. Let a, b, and c be positive real numbers such that $a + b + c = 1$. What is the maximum value of $ab + ac + bc$?
 
-    1. $36\pi$
+    1. 1/3
 
-    2. $12\pi$
+    2. 1/2
 
-    3. $18\pi$
+    3. 1/4
+
+13. How many integers n, with $1\le n \le 1000$, satisfy that $n^2 + n + 1$ is divisible by 7?
+
+    1. 142
+
+    2. 143
+
+    3. 144

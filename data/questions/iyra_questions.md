@@ -1,95 +1,115 @@
-1. How many radians make up 180 degrees?
+1. A number is doubled and then 3 is added. The result is the same as when 3 is subtracted first and then the number is doubled. What is the number?
 
-    1. $\pi$
+   1. No such number
+   
+   2. $3$
+   
+   3. $0$
 
-    2. $2$
+2. Three boxes are labelled “Apples”, “Oranges”, and “Mixed”. All labels are wrong. You may take one fruit from one box. Which box do you pick to correctly relabel all boxes?
 
-    3. $2\pi$
+   1. Mixed
+   
+   2. Apples
+   
+   3. Oranges
 
-2. What is the name of the line perpendicular to the tangent?
+3. If $x^2 = x + 1$, what is $x^3$?
 
-    1. The normal
+   1. $2x + 1$
+   
+   2. $x + 2$
+   
+   3. $2x + 2$
 
-    2. The ideal
+4. A cube has all its faces painted. It is then cut into 27 smaller equal cubes. How many small cubes have exactly two faces painted?
 
-    3. The usual
+   1. 12
+   
+   2. 6
+   
+   3. 8
 
-3. The vacuole is specific to which kind of cell? (that isn\'t a micro-organism)
+5. Two trains of equal length are moving in opposite directions at the same speed. They take 10 seconds to fully pass each other. How long would it take one train to pass a stationary observer?
 
-    1. A plant cell
+   1. 10 seconds
+   
+   2. 5 seconds
+   
+   3. 20 seconds
 
-    2. A human cell
+6. If today is Wednesday, what day will it be 100 days from now?
 
-    3. An animal cell (but not human)
+   1. Friday
+   
+   2. Saturday
+   
+   3. Sunday
 
-4. Which monarch officially made Valentine's day a holiday in 1537?
+7. You have a 5L jug and a 3L jug. What is the minimum number of steps to measure exactly 4L?
 
-    1. Henry VIII
+   1. 6
+   
+   2. 4
+   
+   3. 5
 
-    2. Henry VI
+8. A sequence starts: 2, 6, 7, 21, 22, 66, … What is the next number?
 
-    3. Queen Mary
+   1. 67
+   
+   2. 198
+   
+   3. 68
 
-5. Who wrote the first dictionary?
+9. A rectangle has perimeter 20. What is the maximum possible area?
 
-    1. Robert Cawdrey
+   1. 25
+   
+   2. 20
+   
+   3. 16
 
-    2. Samuel Johnson
+10. If you flip a fair coin 3 times, what is the probability of getting at least one head?
 
-    3. Noah Webster
+   1. $\frac{7}{8}$
+   
+   2. $\frac{1}{2}$
+   
+   3. $\frac{3}{4}$
 
-6. Havana is the capital of which country?
+11. Let $a=2^x, b=2^{-x}$ and suppose $a+b=5.$ Find the exact value of $2^{2x} + 2^{-2x}.$
 
-    1. Cuba
+    1. 23
+    
+    2. 25
+    
+    3. 21
 
-    2. Venezuela
+12. Solve for all roots of the equation $x^2 + 4x + 13 = 0$.
 
-    3. Slovenia
+    1. $x = -2 \pm 3i$
+    
+    2. $x = 2 \pm 3i$
+    
+    3. $x = -2 \pm 9i$
+    
+13. Let triangle $ABC$ have side lengths
+  $AB=13, AC=15, BC=14.$
+  Point $P$ lies strictly inside $\triangle ABC$. Assume the following are all true:
 
-7. What is the hottest planet in the solar system?
+    - The perpendicular distance from $P$ to line $AB$ is $4$.
+    
+    - The perpendicular distance from $P$ to line $AC$ is $\tfrac{16}{5}$.
+    
+    - The three distances from $P$ to the vertices satisfy $PA^2+PB^2+PC^2=170.$
+      
+    Find $PA$.
+ 
+      1. $\frac{\sqrt{3305}}{14}$
+     
+      2. $\frac{\sqrt{3305}}{196}$
 
-    1. Venus
+      3. $\frac{13}{14}$
+    
 
-    2. Earth
-
-    3. Mercury
-
-8. What is the largest bone in the human body?
-
-    1. The femur
-
-    2. The tibia
-
-    3. The Hyoid bone
-
-9. Who was the last Tsar of Russia?
-
-    1. Nicholas II
-
-    2. Catherine the great
-
-    3. Ivan the terrible
-
-10. Depress the cubic equation: $x^3+3x^2-12x+8=0$
-
-    1. $y^3-15y+22=0$
-
-    2. $y^3-22y+15=0$
-
-    3. $x^3+3x^2-12x=-8$
-
-11. Solve for $x$, where, $x = \sqrt{1 + 2 \sqrt{ 1 + 3 \sqrt{1 + 4 \sqrt{ 1 + \cdots}}}}$
-
-    1. 3
-
-    2. $\sqrt{3}$
-
-    3. 1.717
-
-12. What is the length of the top? \includegraphics[width=1.9689in]{../../assets/images/100002010000016C000000CDB373453C91976667.png}
-
-    1. $\sqrt{71}$
-
-    2. $8$
-
-    3. $\sqrt{80}$
