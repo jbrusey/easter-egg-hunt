@@ -78,15 +78,7 @@
 
     3. 20
 
-11. What support hero does Iyra main in Overwatch?
-
-    1. Baptiste
-
-    2. Ana
-
-    3. Moira
-
-12. Let a, b, and c be positive real numbers such that $a + b + c = 1$. What is the maximum value of $ab + ac + bc$?
+11. Let a, b, and c be positive real numbers such that $a + b + c = 1$. What is the maximum value of $ab + ac + bc$?
 
     1. 1/3
 
@@ -94,7 +86,7 @@
 
     3. 1/4
 
-13. How many integers n, with $1\le n \le 1000$, satisfy that $n^2 + n + 1$ is divisible by 7?
+12. How many integers n, with $1\le n \le 1000$, satisfy that $n^2 + n + 1$ is divisible by 7?
 
     1. 142
 

@@ -41,13 +41,18 @@ $(OUTPUT_DIR)/questions.md: src/parse_markdown.py data/questions/iyra_questions.
 test:
 	python -m pytest
 
+print: questions.pdf
+	@echo "Printing output/questions.pdf single-sided..."
+	lp -o sides=one-sided $(OUTPUT_DIR)/questions.pdf
+
 help:
 	@echo "Canonical commands:"
 	@echo "  make questions.pdf   # Generate output/questions.pdf"
+	@echo "  make print           # Print output/questions.pdf (single-sided)"
 	@echo "  make test            # Run test suite"
 	@echo ""
 	@echo "Intermediary targets (usually not called directly):"
 	@echo "  make questions.md    # Generate output/questions.md"
 	@echo "  make questions.tex   # Generate output/questions.tex"
 
-.PHONY: questions.md questions.tex questions.pdf test help
+.PHONY: questions.md questions.tex questions.pdf test print help

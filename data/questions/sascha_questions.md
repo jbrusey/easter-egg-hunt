@@ -86,30 +86,10 @@
 
     3. $-4$
 
-12. Let $a,b,c>0$ and $abc=1$. What is the minimum value of
-[
-a + b + c
-]
+12. Let $a,b,c>0$ and $abc=1$. What is the minimum value of $a + b + c$
 
     1. $3$
 
     2. $1$
 
     3. $0$
-
-36. A graph has 6 vertices, each connected to every other vertex. How many edges does it have?
-
-    1. $15$
-
-    2. $12$
-
-    3. $30$
-
-37. Let $x, y, z > 0$ with $x + y + z = 1$. What is the maximum value of $xy + yz + zx$
-
-    1. $\frac{1}{3}$
-
-    2. $\frac{1}{4}$
-    
-    3. $\frac{1}{2}$
-
